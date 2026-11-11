@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+Course brushing and exams on the experimental platform.Modified based on https://github.com/qiu-changhao/auto_expriment, with exam function added.
 # auto_expriment
 自动刷USTC实验室安全教育视频以及自动考试
 
