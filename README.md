@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # auto_expriment
 自动刷USTC实验室安全教育视频以及自动考试
 
@@ -53,3 +54,8 @@ pip install DrissionPage
 需要多运行一两次
 
 首次打开浏览器需要登陆，之后短期内就不需要了。该程序会统计已学习时长与总时长，然后进行学习，因为页面五分钟就会有一个确认，我们在五分钟前进行一次刷新。当学习时间达到要求学习时长后就会停止并报告。
+=======
+# 2026_shuake
+Course brushing and exams on the experimental platform.
+Modified based on https://github.com/qiu-changhao/auto_expriment, with exam function added
+>>>>>>> 5e6bfa0b6344439595688187738c38283555bacd
