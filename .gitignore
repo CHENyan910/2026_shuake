@@ -1,0 +1,12 @@
+.venv/
+.browser_data/
+.local_backups/
+__pycache__/
+browser.ini
+name_list.txt
+name_list_task.txt
+course_list.json
+extracted_exam_data.json
+exam_answers.txt
+exam_answers.json
+exam_prep/

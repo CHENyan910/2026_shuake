@@ -1,24 +1,25 @@
-# 导入ChromiumPage
-from DrissionPage import ChromiumPage
-from pprint import pprint
-# 打开浏览器
-page = ChromiumPage()
-# 监听数据包
-page.listen.start('https://sysaq.ustc.edu.cn/cg-exam-server/api/page_study_content?page=0&size=30&type=1&examId=5&nocache')
-# 打开第一页
-page.get('https://sysaq.ustc.edu.cn/lab-study-front/examTask/5/4/1/42')
-# 等待数据包加载完成
-rep = page.listen.wait()
-# 打印响应数据
-name_list=[]
-for item in rep.response.body['data']['content']:
-    name_list.append(item['title'])
+"""按新版网页自动翻页，导出全部未学课程。"""
 
-# 将name_list中的内容按行存储到txt文件
-with open('name_list.txt', 'w', encoding='utf-8') as f:
-    for name in name_list:
-        f.write(name + '\n')
-        
-print(f"已成功将{len(name_list)}条数据保存到name_list.txt文件中。")
+from dataclasses import asdict
+import json
+
+from project_config import ROOT, STUDY_URL, TASK_ID, open_browser
+from site_adapter import Site
 
 
+def main():
+    page = open_browser()
+    page.get(STUDY_URL)
+    input("请完成登录并确认课程列表显示正常，然后按回车读取全部课程。")
+    requirements, courses = Site(page).collect_courses()
+    (ROOT / "name_list.txt").write_text("\n".join(c.title for c in courses) + "\n", encoding="utf-8")
+    (ROOT / "name_list_task.txt").write_text(TASK_ID, encoding="utf-8")
+    output = {"task_id": TASK_ID, "requirements": asdict(requirements),
+              "courses": [asdict(c) for c in courses]}
+    (ROOT / "course_list.json").write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"已自动翻页并保存全部 {len(courses)} 个未学条目。")
+    print(requirements.describe())
+
+
+if __name__ == "__main__":
+    main()
